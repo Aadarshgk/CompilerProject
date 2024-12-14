@@ -7,7 +7,7 @@ public class CompilerTool {
     public static void main(String[] args) {
         try {
             // Read the C code from a file (you can also use a string input)
-            String fileName = "src/test.c";  // Replace with your file name
+            String fileName = "test.c";  // Replace with your file name
             String sourceCode = new String(Files.readAllBytes(Paths.get(fileName)));
 
             // Step 1: Tokenize the source code

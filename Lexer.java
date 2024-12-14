@@ -36,7 +36,7 @@ public class Lexer {
 
         while(i<length){
             char currentChar = sourceCode.charAt(i);
-            System.out.println("The character at index "+i+" is :"+currentChar);
+            //System.out.println("The character at index "+i+" is :"+currentChar);
             //Skip the character if its a whiteSpace
             if(Character.isWhitespace(currentChar)){
                 i++;
