@@ -25,7 +25,7 @@ public class Lexer {
 
         @Override
         public String toString() {
-            return String.format("%s->%s", type, value);
+            return String.format("(%s,%s)", type, value);
         }
     }
 
