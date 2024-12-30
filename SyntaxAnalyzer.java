@@ -22,7 +22,7 @@
 //        Condition -> Expression
 //        Block -> '{' Statements '}'
 //        Statements -> Statement | Statements Statement
-//        Statement -> ExpressionStatement | IfElseStatement | ForLoop | WhileLoop
+//        Statement -> ExpressionStatement | IfElseStatement | ForLoop | WhileLoop | Assignment
 
 //        S -> IfStatement
 //        IfStatement -> 'if' '(' Condition ')' Block
@@ -32,7 +32,7 @@
 
 //        S -> Expression
 //        Expression -> Term | Expression '+' Term | Expression '-' Term
-//        Term -> Factor | Term '*' Factor | Term '/' Factor
+//        Term -> Factor | Term '*' Factor | Term '/' Factor | Term '>' Factor | Term '<' Factor
 //        Factor -> ID | Number | '(' Expression ')'
 
 //        S -> T L F';'           // Declaration of variables
@@ -56,6 +56,13 @@ public class SyntaxAnalyzer {
     private Lexer.Token currentToken() {
         if (currentPosition < tokens.size()) {
             return tokens.get(currentPosition);
+        }
+        return null;
+    }
+    private Lexer.Token nextToken(){
+        int next = currentPosition +1;
+        if(next <tokens.size()){
+            return tokens.get(next);
         }
         return null;
     }
@@ -86,6 +93,14 @@ public class SyntaxAnalyzer {
         }
         return false;
     }
+    private boolean matchNext(Lexer.TokenType type,String value){
+        Lexer.Token token = nextToken();
+        if(token !=null && token.type ==type && token.value.equals(value)){
+            consume();
+            return true;
+        }
+        return false;
+    }
 
     // Start parsing the program
     public void parse() {
@@ -99,26 +114,25 @@ public class SyntaxAnalyzer {
         }
     }
 
-    // Statement -> ExpressionStatement | IfElseStatement | ForLoop | WhileLoop
+    // Statement -> ExpressionStatement | IfElseStatement | ForLoop | WhileLoop | Assignment
     private void statement() {
-//        if (match(Lexer.TokenType.KEYWORD, "if")) {
-//            ifElseStatement();//verified
-//        } else if (match(Lexer.TokenType.KEYWORD, "for")) {
-//            forLoop();
-//        } else if (match(Lexer.TokenType.KEYWORD, "while")) {
-//            whileLoop();
-//        } else if(match(Lexer.TokenType.KEYWORD, "int")||match(Lexer.TokenType.KEYWORD, "float")){
-//            declaration(); //verified
-//        } else if (match(Lexer.TokenType.IDENTIFIER)){
-//            if (match(Lexer.TokenType.PUNCTUATION, "=")) {
-//                assignment1();//verified
-//            } else {
-//                expressionStatement(); // Handles standalone expressions
-//            }
-//        }
-//        else {
-            expressionStatement();
-//        }
+        if (match(Lexer.TokenType.KEYWORD, "if")) {
+            ifElseStatement();//verified
+        } else if (match(Lexer.TokenType.KEYWORD, "for")) {
+            forLoop();
+        } else if (match(Lexer.TokenType.KEYWORD, "while")) {
+            whileLoop();
+        } else if(match(Lexer.TokenType.KEYWORD, "int")||match(Lexer.TokenType.KEYWORD, "float")){
+            declaration(); //verified
+        }
+        else {//verified
+            if (matchNext(Lexer.TokenType.PUNCTUATION, "=")) {
+                assignment();
+            } else {
+                expressionStatement(); // Handles standalone expressions
+            }
+        }
+
 
     }
 
@@ -129,6 +143,10 @@ public class SyntaxAnalyzer {
             System.out.println("Semi colon missing at :"+(currentPosition+1));
         }
     }
+    //this if for handling for loop
+    private void expressionStatement1() {
+        expression();
+    }
 
     // Expression -> Term | Expression '+' Term | Expression '-' Term
     private void expression() {
@@ -138,10 +156,13 @@ public class SyntaxAnalyzer {
         }
     }
 
-    // Term -> Factor | Term '*' Factor | Term '/' Factor
+    // Term -> Factor | Term '*' Factor | Term '/' Factor| Term '>' Factor | Term '<' Factor
     private void term() {
         factor();
-        while (currentToken() != null && (match(Lexer.TokenType.OPERATOR, "*") || match(Lexer.TokenType.OPERATOR, "/"))) {
+        while (currentToken() != null && (match(Lexer.TokenType.OPERATOR, "*") ||
+                match(Lexer.TokenType.OPERATOR, "/")||
+                match(Lexer.TokenType.OPERATOR, ">") ||
+                match(Lexer.TokenType.OPERATOR, "<"))) {
             factor();
         }
     }
@@ -181,6 +202,7 @@ public class SyntaxAnalyzer {
         match(Lexer.TokenType.PUNCTUATION, "{");
         statements();
         match(Lexer.TokenType.PUNCTUATION, "}");
+
     }
 
     // Statements -> Statement | Statements Statement
@@ -194,8 +216,8 @@ public class SyntaxAnalyzer {
     private void forLoop() {
         match(Lexer.TokenType.KEYWORD, "for");
         match(Lexer.TokenType.PUNCTUATION, "(");
-        initialization();
-        match(Lexer.TokenType.PUNCTUATION, ";");
+        declaration();
+//        match(Lexer.TokenType.PUNCTUATION, ";");
         condition();
         match(Lexer.TokenType.PUNCTUATION, ";");
         increment();
@@ -249,16 +271,18 @@ public class SyntaxAnalyzer {
     private void assignment() {
         match(Lexer.TokenType.IDENTIFIER);
         match(Lexer.TokenType.PUNCTUATION, "=");
-        expression();
+        expressionStatement();
     }
+    //this is exclusive for handling for loop
     private void assignment1() {
+        match(Lexer.TokenType.IDENTIFIER);
         match(Lexer.TokenType.PUNCTUATION, "=");
-        expression();
+        expressionStatement1();
     }
 //
 //    // Increment -> Expression
     private void increment() {
-        expression();
+        assignment1();
     }
 
     // WhileLoop -> 'while' '(' Condition ')' Block
