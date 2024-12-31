@@ -6,20 +6,30 @@ public class CompilerTool {
     public static void main(String[] args) {
         try {
             // Read the C code from a file
-            String fileName = "test.c";
+            String fileName = "input.txt";
             String sourceCode = new String(Files.readAllBytes(Paths.get(fileName)));
-            //String sourceCode = "int x = 0; if (x > 0) { x = x + 1; }";
-            // Step 1: Tokenize the source code
+
             List<Lexer.Token> tokens = Lexer.tokenize(sourceCode);
-            System.out.println("Tokens:");
-            for (Lexer.Token token : tokens) {
-                System.out.println(token);
+            try (BufferedWriter lexerWriter = new BufferedWriter(new FileWriter("lexer.txt"))) {
+                for (Lexer.Token token : tokens) {
+                    lexerWriter.write(token.toString());
+                    lexerWriter.newLine();
+                }
             }
 
             // Step 2: Analyze syntax
             SyntaxAnalyzer syntaxAnalyzer = new SyntaxAnalyzer(tokens);
-            System.out.println("\nSyntax Analysis:");
-            syntaxAnalyzer.parse();
+
+            try {
+                // Redirect System.out to a common file
+                PrintStream fileOut = new PrintStream(new File("errors.txt"));
+                System.setOut(fileOut);
+
+                syntaxAnalyzer.parse();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
 
             // Step 3: Fix missing semicolons

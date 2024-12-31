@@ -162,7 +162,10 @@ public class SyntaxAnalyzer {
         while (currentToken() != null && (match(Lexer.TokenType.OPERATOR, "*") ||
                 match(Lexer.TokenType.OPERATOR, "/")||
                 match(Lexer.TokenType.OPERATOR, ">") ||
-                match(Lexer.TokenType.OPERATOR, "<"))) {
+                match(Lexer.TokenType.OPERATOR, "<") ||
+                match(Lexer.TokenType.OPERATOR, "<=")||
+                match(Lexer.TokenType.OPERATOR, ">=")
+        )) {
             factor();
         }
     }
