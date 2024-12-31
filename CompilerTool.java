@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.nio.file.*;
 import java.io.*;
 import java.util.*;
@@ -21,21 +22,20 @@ public class CompilerTool {
             SyntaxAnalyzer syntaxAnalyzer = new SyntaxAnalyzer(tokens);
 
             try {
+                PrintStream originalOut = System.out;
                 // Redirect System.out to a common file
                 PrintStream fileOut = new PrintStream(new File("errors.txt"));
                 System.setOut(fileOut);
 
                 syntaxAnalyzer.parse();
+                System.setOut(originalOut);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
 
 
-            // Step 3: Fix missing semicolons
-//            System.out.println("\nCorrected Code:");
-//            String correctedCode = Debugger.fixSemicolons(tokens);
-//            System.out.println(correctedCode);
+            Debugger.fixSemicolons(tokens);
 
         } catch (IOException e) {
             e.printStackTrace();
