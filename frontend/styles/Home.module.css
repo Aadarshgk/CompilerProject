@@ -1,0 +1,70 @@
+.container {
+    padding: 20px;
+    background-color: black; /* Black background */
+    color: white; /* White text for readability */
+    min-height: 100vh; /* Ensure the background covers the entire page */
+}
+
+.codeInput {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    font-family: monospace;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: #333; /* Darker background for input */
+    color: white; /* White text for input */
+}
+
+.runButton {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.runButton:hover {
+    background-color: #005bb5;
+}
+
+.outputContainer {
+    display: flex;
+    gap: 20px;
+}
+
+.correctedOutput {
+    flex: 2;
+    background-color: #222; /* Darker background for output */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white; /* White text for output */
+}
+
+.otherOutputs {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.errorOutput, .lexerOutput {
+    background-color: #222; /* Darker background for output */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white; /* White text for output */
+}
+
+.preStyle {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: white; /* White text for pre elements */
+}
