@@ -1,1 +1,3 @@
-Semi colon missing at :35
+Semi colon missing at :5
+Semi colon missing at :27
+Semi colon missing at :32

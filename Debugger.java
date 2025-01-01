@@ -12,6 +12,7 @@ public class Debugger {
             // Read each line from the file
             while ((line = br.readLine()) != null) {
                 if (line.contains("Semi colon missing at :")) {
+
                     String[] parts = line.split(":");
                     if (parts.length > 1) {
                         // Parse the number and add it to the list
@@ -35,7 +36,7 @@ public class Debugger {
                 }
 
                 if (j<numbers.size() && numbers.get(j) == i ) {
-                    writer.write(" ; ");
+                    writer.write("; ");
                     writer.write("\n");
                     j++;
                 }

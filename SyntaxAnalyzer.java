@@ -222,7 +222,9 @@ public class SyntaxAnalyzer {
         declaration();
 //        match(Lexer.TokenType.PUNCTUATION, ";");
         condition();
-        match(Lexer.TokenType.PUNCTUATION, ";");
+        if(!match(Lexer.TokenType.PUNCTUATION, ";")){
+            System.out.println("Semi colon missing at :"+(currentPosition-1));
+        }
         increment();
         match(Lexer.TokenType.PUNCTUATION, ")");
         block();
@@ -252,7 +254,7 @@ public class SyntaxAnalyzer {
 
             // Ensure the statement ends with a semicolon
             if(!match(Lexer.TokenType.PUNCTUATION, ";")){
-                System.out.println("Semi Colon missing at :"+(currentPosition-1));
+                System.out.println("Semi colon missing at :"+(currentPosition-1));
             }
         } else {
             throw new RuntimeException("Syntax error: Expected 'int' or 'float'");
