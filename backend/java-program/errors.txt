@@ -1,1 +1,2 @@
-Semi colon missing at :11
+Semi colon missing at :9
+Semi colon missing at :28

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import styles from '../styles/Home.module.css';
 
@@ -11,7 +11,6 @@ export default function Home() {
     const handleRunJava = async () => {
         try {
             const response = await axios.post('http://localhost:5001/run-java', { code });
-            console.log('Backend Response:', response.data); // Log the response
             setErrorOutput(response.data.errorOutput);
             setLexerOutput(response.data.lexerOutput);
             setCorrectedOutput(response.data.correctedOutput);
@@ -21,22 +20,9 @@ export default function Home() {
         }
     };
 
-    // Log state updates
-    useEffect(() => {
-        console.log('Error Output Updated:', errorOutput);
-    }, [errorOutput]);
-
-    useEffect(() => {
-        console.log('Lexer Output Updated:', lexerOutput);
-    }, [lexerOutput]);
-
-    useEffect(() => {
-        console.log('Corrected Output Updated:', correctedOutput);
-    }, [correctedOutput]);
-
     return (
         <div className={styles.container}>
-            <h1>Compiler Debugger Tool</h1>
+            <h1 className={styles.heading}>Compiler Debugger Tool</h1>
             <textarea
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
@@ -48,16 +34,16 @@ export default function Home() {
             </button>
             <div className={styles.outputContainer}>
                 <div className={styles.correctedOutput}>
-                    <h2>Corrected Code</h2>
+                    <h2 className={styles.sectionHeading}>Corrected Code</h2>
                     <pre className={styles.preStyle}>{correctedOutput}</pre>
                 </div>
                 <div className={styles.otherOutputs}>
                     <div className={styles.errorOutput}>
-                        <h2>Errors</h2>
+                        <h2 className={styles.sectionHeading}>Errors</h2>
                         <pre className={styles.preStyle}>{errorOutput}</pre>
                     </div>
                     <div className={styles.lexerOutput}>
-                        <h2>Lexer Output</h2>
+                        <h2 className={styles.sectionHeading}>Lexer Output</h2>
                         <pre className={styles.preStyle}>{lexerOutput}</pre>
                     </div>
                 </div>

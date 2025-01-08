@@ -1,53 +1,94 @@
+/* Global container */
 .container {
     padding: 20px;
-    background-color: black; /* Black background */
+    background-color: #1a1a1a; /* Dark background */
     color: white; /* White text for readability */
     min-height: 100vh; /* Ensure the background covers the entire page */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial', sans-serif;
+    margin: -8px; /* Remove margin */
+    width: 100%; /* Ensure full width */
 }
 
+/* Heading */
+.heading {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #0070f3; /* Blue accent color */
+    text-shadow: 0 0 10px rgba(0, 112, 243, 0.7); /* Glow effect */
+}
+
+/* Textarea for code input */
 .codeInput {
     width: 100%;
+    max-width: 800px;
     height: 150px;
-    padding: 10px;
-    font-family: monospace;
+    padding: 15px;
+    font-family: 'Courier New', monospace;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 2px solid #0070f3; /* Blue border */
+    border-radius: 10px;
     margin-bottom: 20px;
     background-color: #333; /* Darker background for input */
     color: white; /* White text for input */
+    box-shadow: 0 0 15px rgba(0, 112, 243, 0.5); /* Glow effect */
+    resize: vertical; /* Allow vertical resizing */
 }
 
+.codeInput:focus {
+    outline: none;
+    border-color: #00b3ff; /* Lighter blue on focus */
+    box-shadow: 0 0 20px rgba(0, 179, 255, 0.7); /* Stronger glow on focus */
+}
+
+/* Run button */
 .runButton {
     display: block;
     margin: 0 auto 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #0070f3;
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #0070f3; /* Blue background */
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 112, 243, 0.5); /* Glow effect */
 }
 
 .runButton:hover {
-    background-color: #005bb5;
+    background-color: #005bb5; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
+.runButton:active {
+    transform: scale(0.95); /* Slightly shrink on click */
+}
+
+/* Output container */
 .outputContainer {
     display: flex;
     gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
 }
 
+/* Corrected output section */
 .correctedOutput {
     flex: 2;
     background-color: #222; /* Darker background for output */
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 112, 243, 0.5); /* Glow effect */
     color: white; /* White text for output */
 }
 
+/* Other outputs section (errors and lexer) */
 .otherOutputs {
     flex: 1;
     display: flex;
@@ -55,16 +96,29 @@
     gap: 20px;
 }
 
+/* Error and lexer output sections */
 .errorOutput, .lexerOutput {
     background-color: #222; /* Darker background for output */
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 112, 243, 0.5); /* Glow effect */
     color: white; /* White text for output */
 }
 
+/* Preformatted text (output content) */
 .preStyle {
     white-space: pre-wrap;
     word-wrap: break-word;
     color: white; /* White text for pre elements */
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Section headings */
+.sectionHeading {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #00b3ff; /* Light blue accent color */
+    text-shadow: 0 0 10px rgba(0, 179, 255, 0.7); /* Glow effect */
 }
