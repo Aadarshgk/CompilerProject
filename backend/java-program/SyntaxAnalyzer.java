@@ -123,7 +123,7 @@ public class SyntaxAnalyzer {
         } else if (match(Lexer.TokenType.KEYWORD, "while")) {
             whileLoop();
         } else if(match(Lexer.TokenType.KEYWORD, "int")||match(Lexer.TokenType.KEYWORD, "float")){
-            declaration(); //verified
+            initialization(); //verified
         }
         else {//verified
             if (matchNext(Lexer.TokenType.PUNCTUATION, "=")) {
